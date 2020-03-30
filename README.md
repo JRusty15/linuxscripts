@@ -1,2 +1,0 @@
-# linuxscripts
-Scripts for Linux
