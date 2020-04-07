@@ -1,8 +1,17 @@
 #!/bin/bash
-MEDIA_STATS="$(zpool list -H -o size,alloc,free,cap,health Media)"
-MEDIA_IO="$(sudo zpool iostat -H Media)"
-STORAGE_STATS="$(zpool list -H -o size,alloc,free,cap,health Storage)"
-STORAGE_IO="$(sudo zpool iostat -H Media)"
+MEDIA_STATS="$(/sbin/zpool list -H -o size,alloc,free,cap,health Media)"
+MEDIA_IO="$(/sbin/zpool iostat -H Media)"
+MEDIA_COMPRESS="$(/sbin/zfs get compressratio -H Media)"
+STORAGE_STATS="$(/sbin/zpool list -H -o size,alloc,free,cap,health Storage)"
+STORAGE_IO="$(/sbin/zpool iostat -H Storage)"
+STORAGE_COMPRESS="$(/sbin/zfs get compressratio -H Storage)"
+
+#echo "Media stats: ${MEDIA_STATS}"
+#echo "Media IO: ${MEDIA_IO}"
+#echo "Media compress: ${MEDIA_COMPRESS}"
+#echo "Storaeg stats: ${STORAGE_STATS}"
+#echo "Storage IO: ${STORAGE_IO}"
+#echo "Storage compress: ${STORAGE_COMPRESS}"
 
 media_split=(${MEDIA_STATS///})
 MEDIA_SIZE=$(numfmt --from=auto "${media_split[0]}")
@@ -19,6 +28,9 @@ MEDIA_OP_READ=$(numfmt --from=auto "${media_io_split[3]}")
 MEDIA_OP_WRITE=$(numfmt --from=auto "${media_io_split[4]}")
 MEDIA_BW_READ=$(numfmt --from=auto "${media_io_split[5]}")
 MEDIA_BW_WRITE=$(numfmt --from=auto "${media_io_split[6]}")
+media_compress_split=(${MEDIA_COMPRESS///})
+MEDIA_COMPRESS_RATIO=$(numfmt --from=auto "${media_compress_split[2]:0:-1}")
+echo "Media CR: ${MEDIA_COMPRESS_RATIO}"
 
 storage_split=(${STORAGE_STATS///})
 STOR_SIZE=$(numfmt --from=auto "${storage_split[0]}")
@@ -35,6 +47,10 @@ STOR_OP_READ=$(numfmt --from=auto "${storage_io_split[3]}")
 STOR_OP_WRITE=$(numfmt --from=auto "${storage_io_split[4]}")
 STOR_BW_READ=$(numfmt --from=auto "${storage_io_split[5]}")
 STOR_BW_WRITE=$(numfmt --from=auto "${storage_io_split[6]}")
+storage_compress_split=(${STORAGE_COMPRESS///})
+STOR_COMPRESS_RATIO=$(numfmt --from=auto "${storage_compress_split[2]:0:-1}")
+echo "Storage CR: ${STOR_COMPRESS_RATIO}"
+
 
 curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
@@ -78,6 +94,10 @@ curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
 
 curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
+--data-raw "zpool,data_source=Media,data_type=compress_ratio value=${MEDIA_COMPRESS_RATIO}"
+
+curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+-H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=size value=${STOR_SIZE}"
 
 curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
@@ -115,3 +135,7 @@ curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
 curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=bandwidth_write value=${STOR_BW_WRITE}"
+
+curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+-H 'Content-Type: text/plain' \
+--data-raw "zpool,data_source=Storage,data_type=compress_ratio value=${STOR_COMPRESS_RATIO}"
