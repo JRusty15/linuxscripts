@@ -30,7 +30,7 @@ MEDIA_BW_READ=$(numfmt --from=auto "${media_io_split[5]}")
 MEDIA_BW_WRITE=$(numfmt --from=auto "${media_io_split[6]}")
 media_compress_split=(${MEDIA_COMPRESS///})
 MEDIA_COMPRESS_RATIO=$(numfmt --from=auto "${media_compress_split[2]:0:-1}")
-echo "Media CR: ${MEDIA_COMPRESS_RATIO}"
+#echo "Media CR: ${MEDIA_COMPRESS_RATIO}"
 
 storage_split=(${STORAGE_STATS///})
 STOR_SIZE=$(numfmt --from=auto "${storage_split[0]}")
@@ -49,7 +49,7 @@ STOR_BW_READ=$(numfmt --from=auto "${storage_io_split[5]}")
 STOR_BW_WRITE=$(numfmt --from=auto "${storage_io_split[6]}")
 storage_compress_split=(${STORAGE_COMPRESS///})
 STOR_COMPRESS_RATIO=$(numfmt --from=auto "${storage_compress_split[2]:0:-1}")
-echo "Storage CR: ${STOR_COMPRESS_RATIO}"
+#echo "Storage CR: ${STOR_COMPRESS_RATIO}"
 
 
 curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \

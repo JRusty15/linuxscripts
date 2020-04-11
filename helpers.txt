@@ -1,1 +1,15 @@
 grep CRON /var/log/syslog
+
+smb://readyshare/externalbackup/
+
+rsync -r -t -v --progress --modify-window=1 -z -s /Storage/Documents/AlliantDocuments /run/user/1000/gvfs/smb-share:server=readyshare,share=externalbackup/test --log-file=/home/jeff/rsync.log
+
+Example Rsync output
+2020/04/10 18:03:25 [11693] building file list
+2020/04/10 18:03:25 [11693] sent 117 bytes  received 17 bytes  268.00 bytes/sec
+2020/04/10 18:03:25 [11693] total size is 2,536,304  speedup is 18,927.64
+
+rsync -r -t -v --progress --modify-window=1 -z -s /Storage /run/user/1000/gvfs/smb-share:server=readyshare,share=externalbackup/zero-cool-rsync/Storage --log-file=/home/jeff/Documents/rsynclogs/rsync_storage.log
+
+rsync -r -t -v --progress --modify-window=1 -z -s /Media /run/user/1000/gvfs/smb-share:server=readyshare,share=externalbackup/zero-cool-rsync/Media --log-file=/home/jeff/Documents/rsynclogs/rsync_media.log
+
