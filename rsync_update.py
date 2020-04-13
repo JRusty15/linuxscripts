@@ -55,14 +55,14 @@ def process_rsync_log(log_file_name):
 	elapsed_time = end_datetime_object - start_datetime_object
 	minutes_elapsed = elapsed_time.total_seconds() / 60
 
-	# print("Sent: {}".format(sent_bytes))
-	# print("Recv: {}".format(recv_bytes))
-	# print("Rate: {}".format(rate))
-	# print("Size: {}".format(total_size))
-	# print("Speedup: {}".format(speedup))
-	# print("Time: {}".format(minutes_elapsed))
-	# print("Files: {}".format(file_count))
-	# print("Dirs: {}".format(dir_count))
+	print("Sent: {}".format(sent_bytes))
+	print("Recv: {}".format(recv_bytes))
+	print("Rate: {}".format(rate))
+	print("Size: {}".format(total_size))
+	print("Speedup: {}".format(speedup))
+	print("Time: {}".format(minutes_elapsed))
+	print("Files: {}".format(file_count))
+	print("Dirs: {}".format(dir_count))
 
 	# Configure API calls to influx DB
 	base_url = "http://192.168.1.109:8086/write?db=extmonitors"
@@ -77,23 +77,23 @@ def process_rsync_log(log_file_name):
 	dir_count_data = "rsync,data_type={},data_source=dir_count value={}".format(type,dir_count)
 
 	# Send data to DB
-	# dlresponse = requests.post(base_url, headers=headers, data=send_data)
-	# print("Send Data: {}".format(dlresponse.status_code))
+	dlresponse = requests.post(base_url, headers=headers, data=send_data)
+	print("Send Data: {}".format(dlresponse.status_code))
 
-	# dlresponse = requests.post(base_url, headers=headers, data=recv_data)
-	# print("Recv Data: {}".format(dlresponse.status_code))
+	dlresponse = requests.post(base_url, headers=headers, data=recv_data)
+	print("Recv Data: {}".format(dlresponse.status_code))
 
-	# dlresponse = requests.post(base_url, headers=headers, data=rate_data)
-	# print("Rate Data: {}".format(dlresponse.status_code))
+	dlresponse = requests.post(base_url, headers=headers, data=rate_data)
+	print("Rate Data: {}".format(dlresponse.status_code))
 
-	# dlresponse = requests.post(base_url, headers=headers, data=size_data)
-	# print("Size Data: {}".format(dlresponse.status_code))
+	dlresponse = requests.post(base_url, headers=headers, data=size_data)
+	print("Size Data: {}".format(dlresponse.status_code))
 
-	# dlresponse = requests.post(base_url, headers=headers, data=speedup_data)
-	# print("Speedup Data: {}".format(dlresponse.status_code))
+	dlresponse = requests.post(base_url, headers=headers, data=speedup_data)
+	print("Speedup Data: {}".format(dlresponse.status_code))
 
-	# dlresponse = requests.post(base_url, headers=headers, data=time_data)
-	# print("Time Data: {}".format(dlresponse.status_code))
+	dlresponse = requests.post(base_url, headers=headers, data=time_data)
+	print("Time Data: {}".format(dlresponse.status_code))
 
 	dlresponse = requests.post(base_url, headers=headers, data=file_count_data)
 	print("File Count Data: {}".format(dlresponse.status_code))
@@ -103,7 +103,7 @@ def process_rsync_log(log_file_name):
 
 	# When logging is confident, delete archiving this. Just delete the file.
 	# Move file to archive folder
-	os.rename(log_file_path + log_file_name, log_file_archive + "{}.{}".format(log_file_name, datetime.datetime.now().timestamp()))
+	os.rename(log_file_path + log_file_name, log_file_archive + "{}.{}".format(log_file_name, datetime.datetime.now()))
 
 
 process_rsync_log(storage_log_file_name)
