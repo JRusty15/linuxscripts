@@ -21,6 +21,8 @@ try:
         time.sleep(2)
 
         while 1:
+                time.sleep(5)
+                
                 print "Calculating distance"
 
                 GPIO.output(PIN_TRIGGER, GPIO.HIGH)
