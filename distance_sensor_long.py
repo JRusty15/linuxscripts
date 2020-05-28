@@ -20,7 +20,7 @@ try:
         logging.basicConfig(filename='distance_log.log',level=logging.ERROR)
 
         print('Waiting for sensor to settle')
-        full_level = 43
+        full_level = 41
         empty_level = 52
 
         time.sleep(2)
@@ -44,7 +44,7 @@ try:
 
                         pulse_duration = pulse_end_time - pulse_start_time
                         distance = round(pulse_duration * 17150, 2)
-                        bowl_percent = round(52 - distance * (100/9) / 100, 2)
+                        bowl_percent = round((empty_level - distance) * (100/(empty_level-full_level)) / 100, 2)
                         print('Distance: {} cm'.format(distance))
                         print('Percent full: {}%'.format(bowl_percent))
 
