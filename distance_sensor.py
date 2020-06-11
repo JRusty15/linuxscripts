@@ -20,8 +20,8 @@ GPIO.output(PIN_TRIGGER, GPIO.LOW)
 logging.basicConfig(filename='distance_log.log',level=logging.DEBUG)
 
 print('Waiting for sensor to settle')
-full_level = 41
-empty_level = 52
+full_level = 40
+empty_level = 47
 
 try:
         time.sleep(5)
