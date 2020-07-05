@@ -14,7 +14,7 @@ print("download speed {}".format(download_speed))
 print("upload speed {}".format(upload_speed))
 print("ping {}".format(ping))
 
-base_url = "http://192.168.1.109:8086/write?db=extmonitors"
+base_url = "http://localhost:8086/write?db=extmonitors"
 headers = {'Content-Type': 'text/plain'}
 download_data = "isp,data_type=download value={}".format(download_speed)
 upload_data = "isp,data_type=upload value={}".format(upload_speed)
