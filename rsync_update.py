@@ -65,7 +65,7 @@ def process_rsync_log(log_file_name):
 	print("Dirs: {}".format(dir_count))
 
 	# Configure API calls to influx DB
-	base_url = "http://192.168.1.109:8086/write?db=extmonitors"
+	base_url = "http://localhost:8086/write?db=extmonitors"
 	headers = {'Content-Type': 'text/plain'}
 	send_data = "rsync,data_type={},data_source=sent value={}".format(type,sent_bytes)
 	recv_data = "rsync,data_type={},data_source=recv value={}".format(type,recv_bytes)
