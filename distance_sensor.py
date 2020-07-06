@@ -45,7 +45,7 @@ try:
         print('Distance: {} cm'.format(distance))
         print('Percent full: {}%'.format(bowl_percent))
 
-        base_url = 'http://192.168.1.109:8086/write?db=extmonitors'
+        base_url = 'http://10.0.0.3:8086/write?db=extmonitors'
         headers = {'Content-Type': 'text/plain'}
         distance_data = 'bailey,data_type=distance value={}'.format(distance)
         bowl_percent_data = 'bailey,data_type=bowl_percent value={}'.format(bowl_percent)
