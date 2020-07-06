@@ -23,7 +23,7 @@ try:
     print('Temperature {}'.format(temperature))
     print('Humidity {}'.format(humidity))
 
-    base_url = "http://192.168.1.109:8086/write?db=extmonitors"
+    base_url = "http://10.0.0.3:8086/write?db=extmonitors"
     headers = {'Content-Type': 'text/plain'}
     beer_temp_data = "beer,data_type=temperature value={}".format(temperature)
     beer_humidity_data = "beer,data_type=humidity value={}".format(humidity)
