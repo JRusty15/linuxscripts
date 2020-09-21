@@ -18,15 +18,15 @@ DOWNLOAD=${arrData[8]}
 UPLOAD=${arrData[9]}
 IP=${arrData[10]}
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
         -H 'Content-Type: text/plain' \
         --data-raw "isp,data_type=ping value=${PING}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
         -H 'Content-Type: text/plain' \
         --data-raw "isp,data_type=download value=${DOWNLOAD}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
         -H 'Content-Type: text/plain' \
         --data-raw "isp,data_type=upload value=${UPLOAD}"
 

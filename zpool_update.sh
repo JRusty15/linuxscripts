@@ -52,90 +52,90 @@ STOR_COMPRESS_RATIO=$(numfmt --from=auto "${storage_compress_split[2]:0:-1}")
 #echo "Storage CR: ${STOR_COMPRESS_RATIO}"
 
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Media,data_type=size value=${MEDIA_SIZE}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Media,data_type=alloc value=${MEDIA_ALLOC}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Media,data_type=free value=${MEDIA_FREE}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Media,data_type=capacity value=${MEDIA_CAP}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Media,data_type=alloc value=${MEDIA_ALLOC}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Media,data_type=health value=${MEDIA_HEALTH}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Media,data_type=operations_read value=${MEDIA_OP_READ}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Media,data_type=operations_write value=${MEDIA_OP_WRITE}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Media,data_type=bandwidth_read value=${MEDIA_BW_READ}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Media,data_type=bandwidth_write value=${MEDIA_BW_WRITE}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Media,data_type=compress_ratio value=${MEDIA_COMPRESS_RATIO}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=size value=${STOR_SIZE}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=alloc value=${STOR_ALLOC}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=free value=${STOR_FREE}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=capacity value=${STOR_CAP}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=alloc value=${STOR_ALLOC}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=health value=${STOR_HEALTH}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=operations_read value=${STOR_OP_READ}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=operations_write value=${STOR_OP_WRITE}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=bandwidth_read value=${STOR_BW_READ}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=bandwidth_write value=${STOR_BW_WRITE}"
 
-curl -L -X POST 'http://192.168.1.109:8086/write?db=extmonitors' \
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=compress_ratio value=${STOR_COMPRESS_RATIO}"
