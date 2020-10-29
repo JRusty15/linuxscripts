@@ -1,0 +1,6 @@
+DEBUG:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): api.openweathermap.org
+DEBUG:requests.packages.urllib3.connectionpool:https://api.openweathermap.org:443 "GET /data/2.5/weather?q=Carol%20Stream&appid=30b33ab3a8bca3900cf2e33c34770695&units=imperial HTTP/1.1" 200 464
+DEBUG:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 10.0.0.3
+DEBUG:requests.packages.urllib3.connectionpool:http://10.0.0.3:8086 "POST /write?db=extmonitors HTTP/1.1" 204 0
+DEBUG:requests.packages.urllib3.connectionpool:Starting new HTTP connection (1): 10.0.0.3
+DEBUG:requests.packages.urllib3.connectionpool:http://10.0.0.3:8086 "POST /write?db=extmonitors HTTP/1.1" 204 0
