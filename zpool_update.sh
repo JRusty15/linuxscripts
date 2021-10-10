@@ -5,6 +5,9 @@ MEDIA_COMPRESS="$(/sbin/zfs get compressratio -H Media)"
 STORAGE_STATS="$(/sbin/zpool list -H -o size,alloc,free,cap,health Storage)"
 STORAGE_IO="$(/sbin/zpool iostat -H Storage)"
 STORAGE_COMPRESS="$(/sbin/zfs get compressratio -H Storage)"
+SECURITY_STATS="$(/sbin/zpool list -H -o size,alloc,free,cap,health security)"
+SECURITY_IO="$(/sbin/zpool iostat -H security)"
+SECURITY_COMPRESS="$(/sbin/zfs get compressratio -H security)"
 
 #echo "Media stats: ${MEDIA_STATS}"
 #echo "Media IO: ${MEDIA_IO}"
@@ -50,6 +53,25 @@ STOR_BW_WRITE=$(numfmt --from=auto "${storage_io_split[6]}")
 storage_compress_split=(${STORAGE_COMPRESS///})
 STOR_COMPRESS_RATIO=$(numfmt --from=auto "${storage_compress_split[2]:0:-1}")
 #echo "Storage CR: ${STOR_COMPRESS_RATIO}"
+
+security_split=(${SECURITY_STATS///})
+SEC_SIZE=$(numfmt --from=auto "${security_split[0]}")
+SEC_ALLOC=$(numfmt --from=auto "${security_split[1]}")
+SEC_FREE=$(numfmt --from=auto "${security_split[2]}")
+SEC_CAP=${security_split[3]::-1}
+if [[ "${security_split[4]}" == "ONLINE" ]]; then
+    SEC_HEALTH=1
+else
+    SEC_HEALTH=0
+fi
+security_io_split=(${SECURITY_IO///})
+SEC_OP_READ=$(numfmt --from=auto "${security_io_split[3]}")
+SEC_OP_WRITE=$(numfmt --from=auto "${security_io_split[4]}")
+SEC_BW_READ=$(numfmt --from=auto "${security_io_split[5]}")
+SEC_BW_WRITE=$(numfmt --from=auto "${security_io_split[6]}")
+security_compress_split=(${SECURITY_COMPRESS///})
+SEC_COMPRESS_RATIO=$(numfmt --from=auto "${security_compress_split[2]:0:-1}")
+#echo "Storage CR: ${SEC_COMPRESS_RATIO}"
 
 
 curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
@@ -139,3 +161,47 @@ curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
 -H 'Content-Type: text/plain' \
 --data-raw "zpool,data_source=Storage,data_type=compress_ratio value=${STOR_COMPRESS_RATIO}"
+
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
+-H 'Content-Type: text/plain' \
+--data-raw "zpool,data_source=Security,data_type=size value=${SEC_SIZE}"
+
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
+-H 'Content-Type: text/plain' \
+--data-raw "zpool,data_source=Security,data_type=alloc value=${SEC_ALLOC}"
+
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
+-H 'Content-Type: text/plain' \
+--data-raw "zpool,data_source=Security,data_type=free value=${SEC_FREE}"
+
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
+-H 'Content-Type: text/plain' \
+--data-raw "zpool,data_source=Security,data_type=capacity value=${SEC_CAP}"
+
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
+-H 'Content-Type: text/plain' \
+--data-raw "zpool,data_source=Security,data_type=alloc value=${SEC_ALLOC}"
+
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
+-H 'Content-Type: text/plain' \
+--data-raw "zpool,data_source=Security,data_type=health value=${SEC_HEALTH}"
+
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
+-H 'Content-Type: text/plain' \
+--data-raw "zpool,data_source=Security,data_type=operations_read value=${SEC_OP_READ}"
+
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
+-H 'Content-Type: text/plain' \
+--data-raw "zpool,data_source=Security,data_type=operations_write value=${SEC_OP_WRITE}"
+
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
+-H 'Content-Type: text/plain' \
+--data-raw "zpool,data_source=Security,data_type=bandwidth_read value=${SEC_BW_READ}"
+
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
+-H 'Content-Type: text/plain' \
+--data-raw "zpool,data_source=Security,data_type=bandwidth_write value=${SEC_BW_WRITE}"
+
+curl -L -X POST 'http://localhost:8086/write?db=extmonitors' \
+-H 'Content-Type: text/plain' \
+--data-raw "zpool,data_source=Security,data_type=compress_ratio value=${SEC_COMPRESS_RATIO}"
